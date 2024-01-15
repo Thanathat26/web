@@ -2,11 +2,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 # กำหนด url แล้วดึงข้อมูล
-@app.route("/login", methods=['POST', 'GET'])
+@app.route("/login")
 def login():
-    if request.method == "POST":
-        form = request.form['msg']
-        print("Message: %s" % (form))
     return render_template("login.html")
 
 @app.route("/Home")
