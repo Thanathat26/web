@@ -10,8 +10,14 @@ from flask_login import (
 )
 
 app = Flask(__name__)
-ab = SQLAlchemy(app)
+db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SECRET_KEY'] = 'thisissecretkey'
+
+class user(db.Model,UserMixin):
+    id = db.Column(db.Integer,primary_key=True)
+    username = db.Column(db.String(20),nullable=False)
+    password = db.Column(db.String(20),nullable=False)
 # กำหนด url แล้วดึงข้อมูล
 #login
 @app.route("/login")
