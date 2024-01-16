@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
 from flask import redirect
 from wtforms import Form, StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
