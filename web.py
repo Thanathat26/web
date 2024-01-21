@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask import redirect
 from wtforms import Form, StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
+from wtforms.validators import InputRequired, Length, ValidationError,DataRequired,Email
 from flask_login import (
     LoginManager,
     login_required,
@@ -12,39 +12,33 @@ from flask_login import (
     UserMixin,
     current_user,
 )
-
+from flask_mysqldb import MySQL
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = 'thisissecretkey'
-db = SQLAlchemy(app)
-#ไม่เอาgit คนอื่นทั้งดุ้น
-class user(db.Model,UserMixin):
-    id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String(20),nullable=False)
-    password = db.Column(db.String(80),nullable=False)
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'mydatabase'
+app.secret_key = 'your_secret_key_here'
+
+mysql = MySQL(app)
 class RegisterForm(FlaskForm):
-    username = StringField(validators=[
-                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    name = StringField("Name",validators=[DataRequired()])
+    email = StringField("Email",validators=[DataRequired(), Email()])
+    password = PasswordField("Password",validators=[DataRequired()])
+    submit = SubmitField("Register")
 
-    password = PasswordField(validators=[
-                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+    def validate_email(self,field):
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM users where email=%s",(field.data,))
+        user = cursor.fetchone()
+        cursor.close()
+        if user:
+            raise ValidationError('Email Already Taken')
 
-    submit = SubmitField('Register')
-    def validate_username(self, username):
-        existing_user_username = User.query.filter_by(
-            username=username.data).first()
-        if existing_user_username:
-            raise ValidationError(
-                'That username already exists. Please choose a different one.')
-    
 class LoginForm(FlaskForm):
-    username = StringField(validators=[
-                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "name@example.com"})
-
-    password = PasswordField(validators=[
-                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
-
-    submit = SubmitField('Login')
+    email = StringField("Email",validators=[DataRequired(), Email()])
+    password = PasswordField("Password",validators=[DataRequired()])
+    submit = SubmitField("Login")
 # กำหนด url แล้วดึงข้อมูล
 #login
 @app.route("/login",methods=['GET','POST'])
