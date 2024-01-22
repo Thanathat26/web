@@ -12,7 +12,7 @@
 <div class="carousel carousel-dark">
 
      <div class="carousel-inner">
-         <div class="carousel-item d-flex justify-content-center align-items-center">
+         <div class="carousel-item d-flex justify-content-center align-items-center" id="carouselDemo">
                <img src="static/1.jfif" class="w-50">
                <div class="carousel-caption">
                   <h5>Room Select 1</h5>
@@ -71,9 +71,12 @@
             </div>
 
      </div>
-    <button class="carousel-control-prev">
-        <span class="carousel-control-prev">
-            
+    <button class="carousel-control-prev" 
+    type="button"
+    data-ds-target="#carouselDemo"
+    data-ds-slide="prev">
+    <span class="carousel-control-prev-icon">
+
         </span>
     </button> 
 
