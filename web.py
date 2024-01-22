@@ -51,7 +51,7 @@ def register():
     form = RegisterForm()
     return render_template("register.html")
 #home
-@app.route("/home")
+@app.route("/Home")
 def Home():
     return render_template("home.html")
 #run
