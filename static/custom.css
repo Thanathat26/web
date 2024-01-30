@@ -55,3 +55,11 @@ body {
 .carousel-indicators {
  max-width:500 ;
 }
+
+.p-3.text-bg-dark {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  background-color: #343a40; 
+  padding: 15px; 
+}
