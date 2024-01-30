@@ -11,8 +11,13 @@ body {
 .form-signin .form-floating:focus-within {
   z-index: 2;
 }
-
+.card-container {
+  display: flex;
+  justify-content: space-between; 
+  padding: 50px; 
+}
 .card {
+  position: relative;
   box-sizing: border-box;
   width: 190px;
   height: 254px;
