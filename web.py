@@ -53,6 +53,31 @@ def register():
 @app.route("/Home")
 def Home():
     return render_template("home.html")
+#room1
+@app.route("/room1")
+def room1():
+    return render_template("room1.html")
+#room2
+@app.route("/room2")
+def room2():
+    return render_template("room2.html")
+#room3
+@app.route("/room3")
+def room3():
+    return render_template("room3.html")
+#room4
+@app.route("/room4")
+def room4():
+    return render_template("room4.html")
+#room5
+@app.route("/room5")
+def room5():
+    return render_template("room5.html")
+#room6
+@app.route("/room6")
+def room6():
+    return render_template("room6.html") 
+
 #run
 if __name__ == "__main__":
     app.run(debug=True)
