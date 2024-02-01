@@ -72,7 +72,7 @@ def room4():
 #room5
 @app.route("/room5")
 def room5():
-    return render_template("room5.html")
+    return render_template("room5.html")    
 #room6
 @app.route("/room6")
 def room6():
