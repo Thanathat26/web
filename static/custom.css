@@ -2,7 +2,6 @@ html,
 body {
   font-family: 'Pixelify Sans', system-ui;
   height: 100%;
-  
 }
 
 .form-signin {
@@ -13,16 +12,19 @@ body {
 .form-signin .form-floating:focus-within {
   z-index: 2;
 }
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; 
-  padding: 50px; 
+  justify-content: space-between;
+  padding: 50px;
 }
+
 .card {
   position: relative;
   box-sizing: border-box;
-  width: 300px;
+  width: calc(33.33% - 40px); 
+  max-width: 300px; 
   height: 420px;
   font-size: 30px;
   background: rgba(217, 217, 217, 0.58);
@@ -41,10 +43,9 @@ body {
   color: black;
   margin-bottom: 20px;
   margin-top: 20px;
-  margin-right: 300px;
-  margin-left: 200px;
+  margin-right: 20px; 
+  margin-left: 20px; 
 }
-
 .card:hover {
   border: 1px solid black;
   transform: scale(1.05);
@@ -54,14 +55,27 @@ body {
   transform: scale(0.95) rotateZ(1.7deg);
 }
 
-.carousel-indicators {
- max-width:500 ;
+@media (max-width: 768px) {
+  .card {
+    width: calc(50% - 40px);
+  }
 }
 
+@media (max-width: 576px) {
+  .card {
+    width: 100%; 
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+.carousel-indicators {
+  max-width: 500; 
+}
 .p-3.text-bg-dark {
   position: fixed;
   width: 100%;
   z-index: 1000;
-  background-color: #343a40; 
-  padding: 15px; 
+  background-color: #343a40;
+  padding: 15px;
 }
