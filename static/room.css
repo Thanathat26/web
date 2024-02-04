@@ -6,9 +6,7 @@ body {
     margin: 0;
     background-size: cover;
     background-position: center;
-    font-family: Arial, sans-serif;
-    font-family: 'Pixelify Sans', system-ui;
-    height: 100%;
+    font-family: 'Pixelify Sans', Arial, sans-serif;
 }
 
 img {
@@ -25,8 +23,15 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
 button {
     width: 165px;
     height: 62px;
@@ -38,22 +43,35 @@ button {
     position: relative;
     background: #100720;
     transition: 0.1s;
-  }
-  
-  button::after {
+}
+
+button::after {
     content: '';
     width: 100%;
     height: 100%;
-    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
+    background-image: radial-gradient( circle farthest-corner at 10% 20%, rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
     filter: blur(15px);
     z-index: -1;
     position: absolute;
     left: 0;
     top: 0;
-  }
-  
-  button:active {
+}
+
+button:active {
     transform: scale(0.9) rotate(3deg);
-    background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
+    background: radial-gradient( circle farthest-corner at 10% 20%, rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
     transition: 0.5s;
-  }
+}
+
+.input-box {
+    width: 100%;
+    max-width: 500px;
+    min-height: 150px;
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    margin: 20px 0;
+    outline: none;
+    border-radius: 5px;
+    font-size: 14px; 
+}
