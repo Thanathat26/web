@@ -83,8 +83,8 @@ def about():
     return render_template("about.html") 
 
 @app.route("/contact")
-def concact():
-    return render_template("concact.html") 
+def contact():
+    return render_template("contact.html") 
 
 #run
 if __name__ == "__main__":
