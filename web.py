@@ -78,6 +78,10 @@ def room5():
 def room6():
     return render_template("room6.html") 
 
+@app.route("/about")
+def about():
+    return render_template("about.html") 
+
 #run
 if __name__ == "__main__":
     app.run(debug=True)
