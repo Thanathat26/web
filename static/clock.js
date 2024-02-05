@@ -11,3 +11,16 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+const notesContainer = document.querySelector(".notes-container");
+const createBtn = document.querySelector(".btn");
+let notes = document.querySelector(".input-box");
+createBtn.addEventListener("clcik",()=>{
+    let inputBox = document.createElement("p");
+    let img = document.createElement("img");
+    inputBox.className = "input-box";
+    inputBox.setAttribute("contenteditable","true");
+    img.src = "static/de.png";
+    notesContainer.appendChild(inputBoc).appendChild(img);
+
+
+})
