@@ -82,6 +82,10 @@ def room6():
 def about():
     return render_template("about.html") 
 
+@app.route("/contact")
+def concact():
+    return render_template("concact.html") 
+
 #run
 if __name__ == "__main__":
     app.run(debug=True)
