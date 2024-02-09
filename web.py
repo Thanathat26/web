@@ -1,54 +1,68 @@
-from flask import Flask, render_template, request
+from flask import Flask, request,render_template, redirect,session
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
-from flask import redirect
-from wtforms import Form, StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError,DataRequired,Email
-from flask_login import (
-    LoginManager,
-    login_required,
-    logout_user,
-    login_user,
-    UserMixin,
-    current_user,
-)
-from flask_mysqldb import MySQL
+import bcrypt
+
 app = Flask(__name__)
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'mydatabase'
-app.secret_key = 'your_secret_key_here'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+app.secret_key = 'secret_key'
 
-mysql = MySQL(app)
-class RegisterForm(FlaskForm):
-    name = StringField("Name",validators=[DataRequired()])
-    email = StringField("Email",validators=[DataRequired(), Email()])
-    password = PasswordField("Password",validators=[DataRequired()])
-    submit = SubmitField("Register")
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
 
-    def validate_email(self,field):
-        cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM users where email=%s",(field.data,))
-        user = cursor.fetchone()
-        cursor.close()
-        if user:
-            raise ValidationError('Email Already Taken')
+    def __init__(self,email,password,name):
+        self.name = name
+        self.email = email
+        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    def check_password(self,password):
+        return bcrypt.checkpw(password.encode('utf-8'),self.password.encode('utf-8'))
 
-class LoginForm(FlaskForm):
-    email = StringField("Email",validators=[DataRequired(), Email()])
-    password = PasswordField("Password",validators=[DataRequired()])
-    submit = SubmitField("Login")
+with app.app_context():
+    db.create_all()
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        new_user = User(name=name,email=email,password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect('/login')
+
+
+
+    return render_template('register.html')
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+        if user and user.check_password(password):
+            session['email'] = user.email
+            return redirect('/Home')
+        else:
+            return render_template('login.html',error='Invalid user')
+
+    return render_template('login.html')
 # กำหนด url แล้วดึงข้อมูล
 #login
-@app.route("/login",methods=['GET','POST'])
-def login():
-    form = LoginForm()
-    return render_template("login.html")
+
 #registr
-@app.route("/register")
-def register():
-    form = RegisterForm()
-    return render_template("register.html")
+
 #home
 @app.route("/Home")
 def Home():
