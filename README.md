@@ -1,3 +1,4 @@
+
 📚🌟# Welcome to PartyBook!📚🌟
 
 เว็บไซต์นี้ถูกออกเเบบมาเพื่อช่วยในการสร้างบรรยาการในการอ่านหนัวสือของคุณ คุณสามารถเลือกพื้นที่ส่วนตัวของคุณได้ขณะอ่านหนังสือ
@@ -22,10 +23,8 @@
 ## ติดตั้ง
 git clone https://github.com/Thanathat26/web.git
 cd PartyBook
-หรือ
-[กดที่นี่]
-(https://github.com/Thanathat26/web/archive/refs/heads/main.zip)
 ```
+### หรือ [กดที่นี่](https://github.com/Thanathat26/web/archive/refs/heads/main.zip)
 เปิดเว็บเบราว์เซอร์และไปที่ http://127.0.0.1:5000/register
 
 ##ติดตั้ง Flask และ SQLAlchemy:
