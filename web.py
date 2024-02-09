@@ -48,9 +48,11 @@ def register():
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST':
+        name = request.form['username']
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
+
         if user and user.check_password(password):
             session['email'] = user.email
             return redirect('/Home')
